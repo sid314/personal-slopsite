@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Cpu, Zap, Shield, Brain } from "lucide-react";
 import StoryReader from "./components/StoryReader";
-
+import AboutFooter from "./components/AboutFooter"; // <--- Import
 // --- Components ---
 const StatBar = ({
   label,
@@ -32,7 +32,7 @@ const StatBar = ({
 
 export default function About() {
   return (
-    <main className="min-h-screen max-w-5xl mx-auto font-sans text-ink pb-20 border-x-2 border-black/5 bg-paper shadow-2xl">
+    <main className="min-h-screen max-w-5xl mx-auto font-sans text-ink border-x-2 border-black/5 bg-paper shadow-2xl">
       {/* 1. TOP BAR */}
       <nav className="p-6 border-b-4 border-black bg-white sticky top-0 z-50 flex justify-between items-center shadow-md">
         <Link
@@ -183,6 +183,7 @@ export default function About() {
         </div>
         <StoryReader />
       </div>
+      <AboutFooter />
     </main>
   );
 }

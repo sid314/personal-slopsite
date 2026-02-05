@@ -14,11 +14,12 @@ export default function StoryPage({
 }: StoryPageProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50, rotate: 2 }}
-      animate={{ opacity: 1, x: 0, rotate: 0 }}
-      exit={{ opacity: 0, x: -50, rotate: -2 }}
-      transition={{ type: "spring", bounce: 0.4 }}
-      className="w-full max-w-2xl mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_black] p-4 md:p-6 relative"
+      // CHANGED: Use 'whileInView' so it animates when you scroll to it
+      initial={{ opacity: 0, y: 100, rotate: -2 }}
+      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+      viewport={{ once: true, margin: "-100px" }} // Triggers when 100px of the card is visible
+      transition={{ type: "spring", bounce: 0.4, duration: 0.8 }}
+      className="w-full max-w-2xl mx-auto bg-white border-4 border-black shadow-[8px_8px_0px_0px_black] p-4 md:p-6 relative z-10"
     >
       {/* 1. Header Strip (Narrator Box) */}
       <div className="flex justify-between items-start mb-4 border-b-2 border-black pb-2 border-dashed">
@@ -31,7 +32,7 @@ export default function StoryPage({
       </div>
 
       {/* 2. The "Action Shot" (Image) */}
-      <div className="relative border-4 border-black h-64 md:h-80 overflow-hidden mb-6 group">
+      <div className="relative border-4 border-black h-64 md:h-80 overflow-hidden mb-6 group bg-gray-200">
         {/* Halftone Overlay Effect */}
         <div className="absolute inset-0 bg-[radial-gradient(circle,black_1px,transparent_1px)] bg-[length:4px_4px] opacity-20 pointer-events-none z-10" />
 

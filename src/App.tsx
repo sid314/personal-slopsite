@@ -1,18 +1,22 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+// FIX: Added Github, Linkedin, and Mail to the imports below
 import {
   Terminal,
   Cpu,
   Zap,
-  Github,
-  Linkedin,
-  Mail,
   ShoppingCart,
   Star,
   Box,
   Ghost,
+  X,
+  Trash2,
+  Github,
+  Linkedin,
+  Mail,
 } from "lucide-react";
 
-// --- Data: The Inventory ---
+// --- Data ---
 const INVENTORY = [
   {
     issue: "#001",
@@ -43,7 +47,143 @@ const INVENTORY = [
   },
 ];
 
-// --- Components ---
+// --- The New "Receipt" Component ---
+const ReceiptDrawer = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/50 z-[60] backdrop-blur-sm"
+          />
+
+          {/* The Receipt Drawer */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-[70] shadow-[-10px_0px_30px_rgba(0,0,0,0.5)] flex flex-col font-mono text-sm"
+          >
+            {/* Receipt Header (Zig Zag Edge at top) */}
+            <div className="bg-zinc-100 p-6 border-b-2 border-dashed border-gray-300 relative">
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 p-2 hover:bg-gray-200 rounded-full transition-colors"
+              >
+                <X size={20} />
+              </button>
+              <div className="text-center space-y-1">
+                <h2 className="text-2xl font-black uppercase tracking-tighter">
+                  BARE METAL SHOP
+                </h2>
+                <p className="text-xs text-gray-500">127.0.0.1 - LOCALHOST</p>
+                <p className="text-xs text-gray-500">TERM: #8829-X</p>
+              </div>
+            </div>
+
+            {/* Receipt Body */}
+            <div className="flex-grow p-6 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]">
+              <div className="space-y-4">
+                <div className="flex justify-between font-bold border-b-2 border-black pb-1">
+                  <span>QTY ITEM</span>
+                  <span>AMT</span>
+                </div>
+
+                {/* "Items" in the cart */}
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold">1x EMBEDDED ENGINEER</p>
+                      <p className="text-xs text-gray-500">SKU: STM32-EXP</p>
+                    </div>
+                    <span className="font-bold">HIRE</span>
+                  </div>
+
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold">1x CLEAN ARCHITECTURE</p>
+                      <p className="text-xs text-gray-500">Condition: Mint</p>
+                    </div>
+                    <span className="font-bold">INCL</span>
+                  </div>
+
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold">100x DOCUMENTATION</p>
+                      <p className="text-xs text-gray-500">Readability: High</p>
+                    </div>
+                    <span className="font-bold">INCL</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dotted Line */}
+              <div className="border-t-2 border-dashed border-gray-300 my-4"></div>
+
+              {/* Total */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-gray-500">
+                  <span>SUBTOTAL</span>
+                  <span>$ priceless</span>
+                </div>
+                <div className="flex justify-between text-gray-500">
+                  <span>TAX (0%)</span>
+                  <span>$ 0.00</span>
+                </div>
+                <div className="flex justify-between font-black text-xl mt-2">
+                  <span>TOTAL</span>
+                  <span>OFFER?</span>
+                </div>
+              </div>
+
+              {/* Barcode Footer */}
+              <div className="mt-8 text-center opacity-70">
+                <p className="mb-2 text-xs">THANK YOU FOR VISITING</p>
+                <div className="h-12 bg-black w-3/4 mx-auto mask-barcode flex items-end justify-center gap-[2px] overflow-hidden">
+                  {[...Array(40)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="bg-white"
+                      style={{
+                        width: Math.random() > 0.5 ? "2px" : "4px",
+                        height: "100%",
+                      }}
+                    ></div>
+                  ))}
+                </div>
+                <p className="text-[10px] mt-1">0000 8821 9912</p>
+              </div>
+            </div>
+
+            {/* Checkout Button */}
+            <div className="p-6 bg-zinc-100 border-t-2 border-black">
+              <a
+                href="mailto:your@email.com?subject=Hiring Inquiry via Portfolio"
+                className="block w-full bg-black text-white text-center py-4 font-black text-lg hover:bg-comic-blue transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] hover:-translate-y-1"
+              >
+                PROCEED TO CHECKOUT
+              </a>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// --- Main Component ---
 
 const Barcode = () => (
   <div className="barcode opacity-80">
@@ -54,8 +194,13 @@ const Barcode = () => (
 );
 
 export default function App() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   return (
-    <main className="min-h-screen max-w-6xl mx-auto font-sans text-ink pb-20 border-x-2 border-black/5 bg-paper shadow-2xl">
+    <main className="min-h-screen max-w-6xl mx-auto font-sans text-ink pb-20 border-x-2 border-black/5 bg-paper shadow-2xl relative">
+      {/* THE RECEIPT DRAWER */}
+      <ReceiptDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
       {/* 1. STORE MARQUEE */}
       <div className="bg-black text-white px-4 py-2 text-center text-xs font-black tracking-widest uppercase border-b-2 border-white">
         ★ GRAND OPENING ★ FREE SHIPPING ON ALL COMMITS ★
@@ -90,21 +235,24 @@ export default function App() {
             Back Issues
           </a>
           <a
-            href="#"
+            href="/about"
             className="hover:text-comic-green hover:underline decoration-4 underline-offset-4"
           >
             Creator
           </a>
         </div>
 
-        <button className="flex items-center gap-2 bg-black text-white px-5 py-2 font-bold border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]">
-          <ShoppingCart size={18} /> <span>CART (0)</span>
+        {/* CART BUTTON WITH CLICK HANDLER */}
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="flex items-center gap-2 bg-black text-white px-5 py-2 font-bold border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+        >
+          <ShoppingCart size={18} /> <span>CART (1)</span>
         </button>
       </nav>
 
       {/* 2. STAFF PICK (Hero Section) */}
       <section className="p-8 md:p-16 grid md:grid-cols-2 gap-12 items-center bg-white border-b-4 border-black">
-        {/* The "Ad Copy" */}
         <div>
           <div className="inline-block border-2 border-black px-3 py-1 text-xs font-black mb-4 bg-comic-purple text-white rotate-2 shadow-[3px_3px_0px_0px_black]">
             STAFF PICK OF THE MONTH
@@ -142,17 +290,13 @@ export default function App() {
           </div>
         </div>
 
-        {/* The "Big Cover" Display */}
         <div className="relative rotate-[-2deg] hover:rotate-0 transition-transform duration-300">
           <div className="comic-cover bg-white aspect-[3/4] flex flex-col border-[4px]">
-            {/* Comic Header */}
             <div className="bg-comic-yellow text-black p-2 flex justify-between items-center text-xs font-black border-b-2 border-black uppercase">
               <span>Mar 2026</span>
               <span>Vol. 1</span>
               <span>$0.00</span>
             </div>
-
-            {/* Cover Art Area */}
             <div className="flex-grow bg-comic-blue relative flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[length:10px_10px] opacity-20" />
               <Cpu
@@ -160,21 +304,16 @@ export default function App() {
                 strokeWidth={1.5}
                 className="text-white drop-shadow-[4px_4px_0px_black]"
               />
-
-              {/* Speech Bubble on Cover */}
               <div className="absolute top-8 left-8 bg-white border-2 border-black px-4 py-2 rounded-[50%] rounded-bl-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]">
                 <p className="text-xs font-black leading-tight text-center">
                   NO <br />
                   HAL!
                 </p>
               </div>
-
               <div className="absolute bottom-4 right-4 bg-comic-red text-white px-3 py-1 font-black text-2xl border-2 border-black -rotate-6 shadow-[3px_3px_0px_0px_black]">
                 POW!
               </div>
             </div>
-
-            {/* Comic Footer */}
             <div className="p-4 border-t-2 border-black bg-white">
               <h3 className="font-black text-3xl leading-none text-black italic">
                 THE ARCHITECT
@@ -205,14 +344,12 @@ export default function App() {
           </a>
         </div>
 
-        {/* The Shelf Visual */}
         <div className="shelf w-full mb-12 relative">
           <div className="absolute -top-3 right-10 bg-white border border-black px-2 text-[10px] font-bold rotate-3">
             STAFF RECOMMENDED
           </div>
         </div>
 
-        {/* The Comic Rack */}
         <div className="grid md:grid-cols-3 gap-8 px-4">
           {INVENTORY.map((item, i) => (
             <motion.div
@@ -220,15 +357,11 @@ export default function App() {
               whileHover={{ y: -10 }}
               className="group cursor-pointer"
             >
-              {/* The Issue Cover */}
               <div className="comic-cover aspect-[2/3] flex flex-col mb-4">
-                {/* Top Strip */}
                 <div className="bg-black text-white px-3 py-1 text-[10px] font-bold flex justify-between uppercase">
                   <span>{item.issue}</span>
                   <span className="text-comic-yellow">Approved Code</span>
                 </div>
-
-                {/* Cover Art */}
                 <div
                   className={`flex-grow ${item.color} relative flex flex-col p-6 text-white border-b-2 border-black`}
                 >
@@ -245,8 +378,6 @@ export default function App() {
                     {item.subtitle}
                   </p>
                 </div>
-
-                {/* Bottom Strip */}
                 <div className="bg-white p-3 relative">
                   <p className="text-xs text-black font-bold leading-tight line-clamp-2 border-l-2 border-gray-300 pl-2">
                     {item.desc}
@@ -262,12 +393,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* 4. FOOTER (Store Hours) */}
+      {/* 4. FOOTER */}
       <footer className="mt-24 border-t-4 border-black bg-white p-12 text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-2 bg-comic-red"></div>
         <div className="absolute top-2 left-0 w-full h-2 bg-comic-blue"></div>
         <div className="absolute top-4 left-0 w-full h-2 bg-comic-yellow"></div>
-
         <h4 className="font-black text-3xl mb-4 text-black uppercase mt-6">
           Visit The Shop
         </h4>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import these hooks
 import { Box, ShoppingCart } from "lucide-react";
 
 interface NavbarProps {
@@ -7,6 +7,30 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onOpenCart, cartCount }: NavbarProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // THE FIX: Custom Scroll Handler
+  const handleScrollToNew = (e: React.MouseEvent) => {
+    e.preventDefault(); // 1. Stop React Router from changing the URL
+
+    // 2. Check if we are on the Home page ("/")
+    if (location.pathname !== "/") {
+      // If we are on "/about", go to Home first, then scroll
+      navigate("/");
+      setTimeout(() => {
+        const section = document.getElementById("new");
+        if (section) section.scrollIntoView({ behavior: "smooth" });
+      }, 100); // Small delay to let the page load
+    } else {
+      // If we are already on Home, just scroll
+      const section = document.getElementById("new");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <>
       <div className="bg-black text-white px-4 py-2 text-center text-xs font-black tracking-widest uppercase border-b-2 border-white">
@@ -29,12 +53,15 @@ export default function Navbar({ onOpenCart, cartCount }: NavbarProps) {
         </div>
 
         <div className="flex gap-6 font-black text-sm uppercase tracking-wide">
+          {/* UPDATED LINK */}
           <a
             href="#new"
-            className="hover:text-comic-red hover:underline decoration-4 underline-offset-4"
+            onClick={handleScrollToNew}
+            className="hover:text-comic-red hover:underline decoration-4 underline-offset-4 cursor-pointer"
           >
             New Arrivals
           </a>
+
           <Link
             to="/about"
             className="hover:text-comic-green hover:underline decoration-4 underline-offset-4"

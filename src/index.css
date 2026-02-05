@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* VINTAGE PULP PALETTE */
+  --color-paper: #f4f1ea; /* Aged Newsprint */
+  --color-ink: #18181b; /* Off-Black (Ink) */
+
+  /* The Primary "CMYK-ish" Colors */
+  --color-comic-red: #ef4444; /* Classic Hero Red */
+  --color-comic-blue: #3b82f6; /* Royal Blue */
+  --color-comic-yellow: #facc15; /* Warning Yellow */
+  --color-comic-green: #22c55e; /* Kryptonite Green */
+  --color-comic-purple: #a855f7; /* Villain Purple */
+
+  --color-black: #000000;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+
+  /* Texture: Rough Pulp Paper (Ben-Day Dots) */
+  background-image:
+    radial-gradient(#d4d4d8 1.5px, transparent 1.5px),
+    radial-gradient(#d4d4d8 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    10px 10px; /* Offset dots */
+  min-height: 100vh;
+}
+
+/* --- CUSTOM COMIC CLASSES --- */
+
+/* The Comic Cover Container */
+.comic-cover {
+  background-color: white;
+  border: 3px solid var(--color-black);
+  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-cover:hover {
+  transform: translateY(-5px) rotate(-1deg);
+  box-shadow: 10px 10px 0px 0px var(--color-black); /* Hard Black Shadow on Hover */
+  z-index: 10;
+}
+
+/* The Price Tag Badge */
+.price-tag {
+  background-color: var(--color-comic-yellow);
+  color: black;
+  font-weight: 900;
+  padding: 4px 8px;
+  border: 2px solid var(--color-black);
+  transform: rotate(-3deg);
+  display: inline-block;
+  box-shadow: 2px 2px 0px 0px var(--color-black);
+}
+
+/* The Wooden Shelf Divider */
+.shelf {
+  border-bottom: 12px solid #78350f; /* Dark Wood Color */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0;
+}
+
+/* CSS-Generated Barcode */
+.barcode {
+  display: flex;
+  height: 30px;
+  gap: 2px;
+  align-items: flex-end;
+}
+.barcode span {
+  background: black;
+  width: 2px;
+  display: block;
+}
+.barcode span:nth-child(even) {
+  width: 4px;
+}
+.barcode span:nth-child(3n) {
+  width: 1px;
+}
+.barcode span:nth-child(4n) {
+  width: 3px;
+}

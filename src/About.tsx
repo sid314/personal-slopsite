@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Cpu, Zap, Code, Shield, Brain } from "lucide-react";
+import { ArrowLeft, Cpu, Zap, Shield, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // --- Components ---
@@ -50,7 +50,7 @@ export default function About() {
 
       {/* 2. HEADER */}
       <header className="p-8 md:p-12 bg-comic-yellow border-b-4 border-black text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_black_1px,_transparent_1px)] bg-[length:10px_10px]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,black_1px,transparent_1px)] bg-size-[10px_10px]" />
 
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -71,14 +71,14 @@ export default function About() {
         {/* LEFT COL: Stats & Image */}
         <div>
           {/* "Mugshot" Frame */}
-          <div className="comic-cover bg-white p-4 mb-8 rotate-[-1deg]">
+          <div className="comic-cover bg-white p-4 mb-8 -rotate-1">
             <div className="aspect-square bg-comic-blue border-2 border-black flex items-center justify-center mb-4 relative overflow-hidden">
               <Cpu
                 size={80}
                 className="text-white relative z-10"
                 strokeWidth={1.5}
               />
-              <div className="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,black_25%,transparent_25%,transparent_50%,black_50%,black_75%,transparent_75%,transparent)] bg-[length:20px_20px]" />
+              <div className="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,black_25%,transparent_25%,transparent_50%,black_50%,black_75%,transparent_75%,transparent)] bg-size-[20px_20px]" />
             </div>
             <div className="text-center">
               <h2 className="font-black text-2xl uppercase">Abdullah</h2>

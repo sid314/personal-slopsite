@@ -1,17 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
-import About from "./About.tsx"; // Import the new page
 import "./index.css";
+import "devicon/devicon.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      {/* We removed <Routes> here. App handles routing now. */}
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
 );

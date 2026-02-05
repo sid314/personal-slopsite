@@ -67,7 +67,7 @@ export default function Home() {
               Read Bio
             </button>
 
-            {/* Social Icons (Mapped from Constant) */}
+            {/* Social Icons */}
             <div className="flex gap-2">
               {SOCIAL_LINKS.map((link, i) => (
                 <a
@@ -129,28 +129,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW ARRIVALS */}
-      <section id="new" className="px-6 md:px-12 mt-16 scroll-mt-32">
-        <div className="flex items-end justify-between mb-2">
-          <h3 className="text-3xl font-black italic tracking-tight flex items-center gap-2 text-black transform -skew-x-6">
-            <Star className="fill-comic-yellow text-black" size={28} /> FRESH
-            OFF THE PRESS
+      {/* NEW ARRIVALS (CLEAN VERSION) */}
+      <section
+        id="new"
+        className="px-6 md:px-12 py-16 scroll-mt-20 bg-transparent"
+      >
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <h3 className="text-3xl md:text-5xl font-black italic tracking-tight flex items-center gap-3 text-black transform -skew-x-6">
+            <div className="bg-comic-yellow border-2 border-black p-1 shadow-[2px_2px_0px_black]">
+              <Star className="text-black" size={24} fill="currentColor" />
+            </div>
+            FRESH OFF THE PRESS
           </h3>
-          <a
-            href="#"
-            className="text-sm font-bold bg-black text-white px-2 py-1 rotate-1 hover:-rotate-1 transition-transform"
-          >
-            VIEW ALL ISSUES
-          </a>
-        </div>
 
-        <div className="shelf w-full mb-12 relative">
-          <div className="absolute -top-3 right-10 bg-white border border-black px-2 text-[10px] font-bold rotate-3">
-            STAFF RECOMMENDED
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs font-bold text-gray-500 uppercase tracking-widest hidden md:block">
+              // UPDATED: {new Date().toLocaleDateString()}
+            </span>
+            <div className="h-1 w-12 bg-black md:hidden"></div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 px-4">
+        {/* The Grid of Comics */}
+        <div className="grid md:grid-cols-3 gap-8">
           {INVENTORY.map((item, i) => (
             <ComicCover key={i} item={item} />
           ))}

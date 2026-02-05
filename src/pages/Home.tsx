@@ -130,7 +130,7 @@ export default function Home() {
       </section>
 
       {/* NEW ARRIVALS */}
-      <section id="new" className="px-6 md:px-12 mt-16">
+      <section id="new" className="px-6 md:px-12 mt-16 scroll-mt-32">
         <div className="flex items-end justify-between mb-2">
           <h3 className="text-3xl font-black italic tracking-tight flex items-center gap-2 text-black transform -skew-x-6">
             <Star className="fill-comic-yellow text-black" size={28} /> FRESH

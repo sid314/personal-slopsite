@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Cpu, Zap, Shield, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ArrowLeft, Cpu, Zap, Shield, Brain } from "lucide-react";
+import StoryReader from "./components/StoryReader";
 
 // --- Components ---
 const StatBar = ({
@@ -20,7 +21,8 @@ const StatBar = ({
     <div className="h-4 border-2 border-black bg-white p-0.5">
       <motion.div
         initial={{ width: 0 }}
-        animate={{ width: `${value}%` }}
+        whileInView={{ width: `${value}%` }}
+        viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.5 }}
         className={`h-full ${color}`}
       />
@@ -30,9 +32,9 @@ const StatBar = ({
 
 export default function About() {
   return (
-    <main className="min-h-screen max-w-4xl mx-auto font-sans text-ink pb-20 border-x-2 border-black/5 bg-paper shadow-2xl">
+    <main className="min-h-screen max-w-5xl mx-auto font-sans text-ink pb-20 border-x-2 border-black/5 bg-paper shadow-2xl">
       {/* 1. TOP BAR */}
-      <nav className="p-6 border-b-4 border-black bg-white sticky top-0 z-50 flex justify-between items-center">
+      <nav className="p-6 border-b-4 border-black bg-white sticky top-0 z-50 flex justify-between items-center shadow-md">
         <Link
           to="/"
           className="flex items-center gap-2 font-black uppercase hover:text-comic-blue transition-colors group"
@@ -43,14 +45,14 @@ export default function About() {
           />
           <span>Back to Shop</span>
         </Link>
-        <div className="bg-black text-white px-3 py-1 text-xs font-bold -rotate-1">
+        <div className="bg-black text-white px-3 py-1 text-xs font-bold -rotate-1 shadow-[2px_2px_0px_white]">
           CLASSIFIED FILE #892
         </div>
       </nav>
 
       {/* 2. HEADER */}
       <header className="p-8 md:p-12 bg-comic-yellow border-b-4 border-black text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,black_1px,transparent_1px)] bg-size-[10px_10px]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,black_1px,transparent_1px)] bg-[length:10px_10px]" />
 
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
@@ -67,31 +69,50 @@ export default function About() {
       </header>
 
       {/* 3. PROFILE CONTENT */}
-      <div className="p-8 md:p-12 grid md:grid-cols-2 gap-12">
+      <div className="p-8 md:p-12 grid md:grid-cols-2 gap-12 border-b-4 border-black bg-white">
         {/* LEFT COL: Stats & Image */}
         <div>
           {/* "Mugshot" Frame */}
-          <div className="comic-cover bg-white p-4 mb-8 -rotate-1">
-            <div className="aspect-square bg-comic-blue border-2 border-black flex items-center justify-center mb-4 relative overflow-hidden">
+          <div className="comic-cover bg-white p-4 mb-8 -rotate-1 hover:rotate-0 transition-transform duration-300">
+            <div className="aspect-square bg-comic-blue border-2 border-black flex items-center justify-center mb-4 relative overflow-hidden group">
               <Cpu
                 size={80}
-                className="text-white relative z-10"
+                className="text-white relative z-10 group-hover:scale-110 transition-transform duration-300"
                 strokeWidth={1.5}
               />
-              <div className="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,black_25%,transparent_25%,transparent_50%,black_50%,black_75%,transparent_75%,transparent)] bg-size-[20px_20px]" />
+              <div className="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,black_25%,transparent_25%,transparent_50%,black_50%,black_75%,transparent_75%,transparent)] bg-[length:20px_20px]" />
             </div>
             <div className="text-center">
               <h2 className="font-black text-2xl uppercase">Abdullah</h2>
               <p className="font-mono text-xs font-bold bg-black text-white inline-block px-2">
                 LVL 24 TECHNOMANCER
               </p>
+
+              {/* FIXED: Using Devicons classes instead of BrandIcons.tsx */}
+              <div className="flex justify-center gap-4 mt-4">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  <i className="devicon-github-original text-2xl"></i>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  <i className="devicon-linkedin-plain text-blue-700 text-2xl"></i>
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Power Stats */}
           <div className="bg-white border-2 border-black p-6 shadow-[6px_6px_0px_0px_black]">
             <h3 className="font-black text-xl mb-4 border-b-2 border-black pb-2 flex items-center gap-2">
-              <Zap size={20} className="fill-comic-yellow" /> POWER LEVELS
+              <Zap size={20} className="fill-comic-yellow text-black" /> POWER
+              LEVELS
             </h3>
             <StatBar label="Embedded C" value={95} color="bg-comic-red" />
             <StatBar label="RTOS Arch" value={88} color="bg-comic-blue" />
@@ -103,21 +124,23 @@ export default function About() {
         {/* RIGHT COL: The Story */}
         <div className="space-y-8">
           {/* Narration Box 1 */}
-          <div className="bg-white border-2 border-black p-6 relative">
+          <div className="bg-gray-50 border-2 border-black p-6 relative">
             <div className="absolute -top-3 left-6 bg-comic-yellow px-2 font-black text-xs border-2 border-black">
               PANEL 1: THE BEGINNING
             </div>
             <p className="font-medium text-lg leading-relaxed">
               "It started with a single blinking LED. While others played with
               high-level abstractions, I was drawn to the{" "}
-              <span className="font-black bg-comic-yellow px-1">metal</span>. I
-              wanted to know what happened in the registers. I wanted to control
-              the electrons myself."
+              <span className="font-black bg-comic-yellow px-1 border border-black">
+                metal
+              </span>
+              . I wanted to know what happened in the registers. I wanted to
+              control the electrons myself."
             </p>
           </div>
 
           {/* Narration Box 2 */}
-          <div className="bg-comic-blue text-white border-2 border-black p-6 shadow-[6px_6px_0px_0px_black] transform rotate-1">
+          <div className="bg-comic-blue text-white border-2 border-black p-6 shadow-[6px_6px_0px_0px_black] transform rotate-1 hover:rotate-0 transition-transform">
             <div className="flex gap-4 items-start">
               <Brain size={32} className="shrink-0" />
               <p className="font-bold text-lg leading-tight italic">
@@ -143,7 +166,7 @@ export default function About() {
               ].map((tech) => (
                 <div
                   key={tech}
-                  className="border-2 border-black bg-white px-3 py-2 font-bold text-sm hover:bg-black hover:text-white transition-colors cursor-default"
+                  className="border-2 border-black bg-white px-3 py-2 font-bold text-sm hover:bg-black hover:text-white transition-colors cursor-default shadow-[2px_2px_0px_0px_black]"
                 >
                   {tech}
                 </div>
@@ -151,6 +174,14 @@ export default function About() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 4. TIMELINE READER SECTION */}
+      <div className="relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black text-white px-6 py-2 font-black uppercase text-xl border-2 border-white rotate-[-2deg] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] z-10">
+          The Timeline
+        </div>
+        <StoryReader />
       </div>
     </main>
   );

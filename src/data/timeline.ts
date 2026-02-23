@@ -20,6 +20,16 @@ export const TIMELINE: TimelineEvent[] = [
     color: "bg-comic-blue",
   },
   {
+    year: "2024 - 2025",
+    title: "OPERATION: DEEP DIVE",
+    role: "Competition Organizer",
+    company: "ROVC 4.0 - Underwater Robotics",
+    desc: "Called upon to orchestrate the fourth installment of the legendary ROVC! Our hero coordinated teams of students building AUVs and ROVs, designing aquatic challenges, and ensuring the competition ran smoother than a well-tuned PID controller.",
+    image:
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop",
+    color: "bg-comic-purple",
+  },
+  {
     year: "2025",
     title: "WINTER SHOWDOWN",
     role: "Hackathon Champion",

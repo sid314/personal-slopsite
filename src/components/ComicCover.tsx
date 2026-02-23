@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import Barcode from "./Barcode";
-import type { InventoryItem } from "../data/inventory";
+import type { Project } from "../data/projects";
 
-export default function ComicCover({ item }: { item: InventoryItem }) {
+export default function ComicCover({ item }: { item: Project }) {
   return (
     <motion.div whileHover={{ y: -10 }} className="group cursor-pointer h-full">
       <div className="comic-cover aspect-2/3 flex flex-col mb-4 h-full">

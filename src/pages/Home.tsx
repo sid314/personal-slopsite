@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import ReceiptDrawer from "../components/ReceiptDrawer";
 import ComicCover from "../components/ComicCover";
 import Barcode from "../components/Barcode";
-import { INVENTORY } from "../data/inventory";
+import { PROJECTS } from "../data/projects";
 
 // --- GLOBAL CONFIG ---
 const SOCIAL_LINKS = [
@@ -78,7 +78,7 @@ export default function Home() {
                   {link.type === "devicon" ? (
                     <i className={`${link.iconClass} text-2xl`}></i>
                   ) : (
-                    // @ts-ignore
+                    // @ts-expect-error - lucide-react icon component typing
                     <link.icon size={24} strokeWidth={2.5} />
                   )}
                 </a>
@@ -152,7 +152,7 @@ export default function Home() {
 
         {/* The Grid of Comics */}
         <div className="grid md:grid-cols-3 gap-8">
-          {INVENTORY.map((item, i) => (
+          {PROJECTS.slice(0, 3).map((item, i) => (
             <ComicCover key={i} item={item} />
           ))}
         </div>

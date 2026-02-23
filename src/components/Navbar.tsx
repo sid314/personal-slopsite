@@ -63,6 +63,13 @@ export default function Navbar({ onOpenCart, cartCount }: NavbarProps) {
           </a>
 
           <Link
+            to="/back-issues"
+            className="hover:text-comic-blue hover:underline decoration-4 underline-offset-4"
+          >
+            Back Issues
+          </Link>
+
+          <Link
             to="/about"
             className="hover:text-comic-green hover:underline decoration-4 underline-offset-4"
           >

@@ -20,6 +20,16 @@ export const TIMELINE: TimelineEvent[] = [
     color: "bg-comic-blue",
   },
   {
+    year: "2025",
+    title: "WINTER SHOWDOWN",
+    role: "Hackathon Champion",
+    company: "GDGC Winter of Code",
+    desc: "Armed with Python and a vision, our hero forged Pyfyle—a profiler frontend to expose the secrets of slow code. The judges were impressed. Second place claimed. Best Freshers Team secured. Victory tastes like optimized runtime.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
+    color: "bg-comic-yellow",
+  },
+  {
     year: "2023 - PRESENT",
     title: "ENTER THE INDUSTRY",
     role: "Embedded Architect",

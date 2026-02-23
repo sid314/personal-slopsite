@@ -10,19 +10,19 @@ You are an expert Frontend Developer and Comic Book Layout Artist. Your task is 
 
 ## 2. Tech Stack & Architecture (STRICT)
 
-- **Framework:** Next.js 16 (App Router)
+- **Build Tool:** Vite (rolldown-vite)
 - **React Version:** React 19
 - **Language:** TypeScript (`.tsx`, strictly typed)
-- **Routing:** Next.js native (`next/link`, `next/navigation`)
-- **Styling:** Tailwind CSS v4 (`@tailwindcss/postcss`)
+- **Routing:** React Router v7 (HashRouter for GitHub Pages compatibility)
+- **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`)
 - **Animations:** Framer Motion 12
 - **Icons:** `lucide-react` (UI actions) and Devicon CSS (Brand logos: GitHub, LinkedIn, C++, Python)
 
-## 3. Next.js Specific Rules (CRITICAL)
+## 3. React Router Specific Rules (CRITICAL)
 
-- **Client Components:** Any component that uses `framer-motion`, `useState`, `useEffect`, or `onClick` handlers MUST have `"use client";` at the very top of the file.
-- **Routing:** Use `<Link href="/path">` from `next/link` instead of `<a>` tags for internal navigation.
-- **Images:** Use the standard `<img>` tag or Next.js `<Image>` component, but remember they must fit the comic aesthetic (halftone filters, heavy borders).
+- **Routing:** Use `<Link to="/path">` from `react-router-dom` for internal navigation.
+- **HashRouter:** The app uses HashRouter (not BrowserRouter) for GitHub Pages deployment.
+- **Images:** Use standard `<img>` tags. Apply halftone filters and heavy borders for comic aesthetic.
 
 ## 4. Domain Knowledge & Copywriting (The Lore)
 
@@ -58,7 +58,7 @@ Strictly enforce these utility patterns to maintain the visual language:
 
 ### C. Color Palette
 
-Assume these custom colors exist in the `globals.css` or Tailwind config and use them aggressively:
+These custom colors are defined in `src/index.css` via Tailwind v4's `@theme` directive. Use them aggressively:
 
 - `bg-comic-yellow` (Primary highlights, loud banners, "Meanwhile..." boxes)
 - `bg-comic-red` (Primary buttons, alerts, "POW" effects, pins)
